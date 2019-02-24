@@ -11,10 +11,12 @@ task dependencyManagementProperties(type: DefaultTask) {
     }
 }
 
+/* @link https://docs.spring.io/dependency-management-plugin/docs/current-SNAPSHOT/reference/html/#introduction */
 dependencyManagement {
     dependencies {
         dependency(group: "org.hibernate", name: "hibernate-envers", version: "5.3.3.Final")
     }
+    /* @link https://docs.spring.io/dependency-management-plugin/docs/current-SNAPSHOT/reference/html/*/
     /* ********************************* NOTE:- 1 ********************************* */
     /*Disabling the customization of a generated pom
     If you prefer to have complete control over your project’s generated pom, you can
