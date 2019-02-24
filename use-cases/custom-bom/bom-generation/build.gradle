@@ -20,12 +20,6 @@ repositories {
     mavenCentral()
 }
 
-dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-}
-
-
 task dependencyManagementProperties(type: DefaultTask) {
     doLast {
         description = 'Print all BOM properties to the console'
