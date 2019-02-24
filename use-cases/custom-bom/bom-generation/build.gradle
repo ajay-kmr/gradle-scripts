@@ -3,8 +3,6 @@ plugins {
     id 'java'
 }
 
-apply plugin: 'io.spring.dependency-management'
-
 apply {
     fileTree("$rootProject.projectDir/gradle/plugins/")?.each {
         println("Applying plugin from ${it.name}")
@@ -18,21 +16,4 @@ sourceCompatibility = '1.8'
 
 repositories {
     mavenCentral()
-}
-
-task dependencyManagementProperties(type: DefaultTask) {
-    doLast {
-        description = 'Print all BOM properties to the console'
-
-        dependencyManagement
-                .importedProperties
-                .toSorted({ Map.Entry a, Map.Entry b -> a.key <=> b.key })
-                .each { property -> println property }
-    }
-}
-
-dependencyManagement {
-    dependencies {
-        dependency(group: "org.hibernate", name: "hibernate-envers", version: "5.3.3.Final")
-    }
 }

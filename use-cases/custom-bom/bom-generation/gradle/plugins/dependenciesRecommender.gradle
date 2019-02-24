@@ -1,0 +1,18 @@
+apply plugin: 'io.spring.dependency-management'
+
+task dependencyManagementProperties(type: DefaultTask) {
+    doLast {
+        description = 'Print all BOM properties to the console'
+
+        dependencyManagement
+                .importedProperties
+                .toSorted({ Map.Entry a, Map.Entry b -> a.key <=> b.key })
+                .each { property -> println property }
+    }
+}
+
+dependencyManagement {
+    dependencies {
+        dependency(group: "org.hibernate", name: "hibernate-envers", version: "5.3.3.Final")
+    }
+}
