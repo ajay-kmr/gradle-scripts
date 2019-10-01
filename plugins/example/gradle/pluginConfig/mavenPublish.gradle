@@ -27,14 +27,32 @@ task sourceJar(type: Jar) {
     classifier "sources"
 }
 
+task javadocJar(type: Jar) {
+    from javadoc
+//    archiveClassifier = 'javadoc'
+    classifier = 'javadoc'
+}
+
+javadoc {
+    if (JavaVersion.current().isJava9Compatible()) {
+        options.addBooleanOption('html5', true)
+    }
+}
+
 publishing {
     publications {
         //Has format:- pubName (MavenPublication)
         "-${projectName}-"(MavenPublication) {
+            /*Include Source classes as well*/
+            from components.java
+            /*Include Jar file*/
             artifact sourceJar
+            /*Include Java Doc file*/
+            artifact javadocJar
         }
     }
     repositories {
+        mavenLocal()
         maven {
             name = "-${projectName}-local-"
             def releasesRepoUrl = "$buildDir/repos/releases "
@@ -75,16 +93,17 @@ publishing {
              * export AWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
              * export AWS_DEFAULT_REGION=ap-south-1
              */
-            /*authentication {
+            authentication {
                 //Refer:- com.amazonaws.auth.DefaultAWSCredentialsProviderChain
                 awsIm(AwsImAuthentication) // load from EC2 role or env var
-            }*/
+            }
+            /*
             credentials(AwsCredentials) {
                 //Refer:- com.amazonaws.auth.DefaultAWSCredentialsProviderChain
                 def defaultCredentials = new com.amazonaws.auth.DefaultAWSCredentialsProviderChain().getCredentials()
                 accessKey defaultCredentials.getAWSAccessKeyId()
                 secretKey defaultCredentials.getAWSSecretKey()
-            }
+            }*/
         }
     }
 }
