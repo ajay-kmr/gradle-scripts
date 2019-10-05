@@ -43,9 +43,9 @@ publishing {
     publications {
         //Has format:- pubName (MavenPublication)
         "-${projectName}-"(MavenPublication) {
-            /*Include Source classes as well*/
+            /*Create Jar containing the compiled class file from the java components*/
             from components.java
-            /*Include Jar file*/
+            /*Include the source code (i.e java files) as well in Jar file*/
             artifact sourceJar
             /*Include Java Doc file*/
             artifact javadocJar
